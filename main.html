@@ -4,8 +4,14 @@
 <head>
    <script src="main.js"></script>
    <script src="./lib/vis.js"></script>
-   <script src="./data/testData1.js"></script>
+   <script src="./data/Prereqs.js"></script>
+   <script src="./data/Courses.js"></script>
+   <script src="./data/Majors.js"></script>
    <link href="./lib/vis.css" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <style type="text/css">
     #mynetwork {
@@ -18,8 +24,19 @@
 
 <body>
 
-<h1>Prereq Visualizaion</h1>
 
-<div style="width:1000px; height:600px" id="mynetwork"></div>
+<div style="margin-top:20px">
+<div class="col-lg-8">
+  <h1>Prerequisite Visualizaion</h1>
+  <select id="courseSelection" style="border-radius:4px; font-size:14pt; margin-bottom:5px">
+
+  </select>
+<div style="width:100%; height:75vh"  id="mynetwork"></div>
+</div>
+<div  class="col-lg-4" style="max-width:27%; margin-top:90px">
+  <div id="courseTitle" style="font-weight:bold; font-size:13pt"></div>
+  <div id="courseDescription"></div>
+</div>
+<div>
 </body>
 </html>
