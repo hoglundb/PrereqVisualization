@@ -20,7 +20,7 @@ const EDGE_COLOR = "#9C9C9C";
 const NON_COURSE_PREREQ_COLOR = "C0C0C0"
 
 //COLOR of nodes in the graph
-const NODE_COLOR = "F3A8F3"
+const NODE_COLOR = "87CEFA"//"F3A8F3"
 
 //the entry point for the program
 window.addEventListener("load", async function(){
@@ -117,13 +117,13 @@ function buildNetwork(majorId){
    };
    var options = {
         layout: {
-          hierarchical: {
+        /*  hierarchical: {
             sortMethod:  SORT_METHOD,
             nodeSpacing: NODE_SPACING,
             treeSpacing: TREE_SPACING,
             levelSeparation: LEVEL_SEPARATION,
             direction: DIRECTION,
-          },
+          },*/
         },
         edges: {
           smooth: true,
