@@ -4,9 +4,10 @@ var edges = null;
 var data = null;
 var network = null;
 
+
 //attributes to tell vis.js how to draw the graph
 const REGULAR_NODE_SIZE = 18;
-const LARGE_NODE_SIZE = 24;
+const LARGE_NODE_SIZE = 28;
 const NODE_SPACING = 130;
 const TREE_SPACING = 10;
 const LEVEL_SEPARATION = 130;
@@ -14,19 +15,42 @@ const SORT_METHOD = "directed";
 const DIRECTION = "DU";
 
 //color for edges in the graph
-const EDGE_COLOR = "#9C9C9C";
+const EDGE_COLOR = "grey";
 
 //COLOR for a course that is a prereq, but outside the selected major
 const NON_COURSE_PREREQ_COLOR = "C0C0C0"
 
 //COLOR of nodes in the graph
-const NODE_COLOR = "87CEFA"//"F3A8F3"
+const NODE_COLOR = "F3A8F3";
+
+//colors to decorate the links to optional prerequisites
+const DASHES_COLOR = ["blue", "green", "red", "black", "purple"];
+
 
 //the entry point for the program
 window.addEventListener("load", async function(){
+    await _initailize();
     await _buildMajorsDropdown();
     await buildNetwork(_getDropdownSelection("courseSelection"));
 });
+
+
+//adds dropdown event listeners and stuff
+function _initailize(){
+  var layoutDrop = document.getElementById("networkLayout");
+  layoutDrop.addEventListener("change", function(e){
+     buildNetwork(_getDropdownSelection("courseSelection"));
+  });
+
+
+  var showMajors = document.getElementsByClassName("showNonMajorRadios");
+  for (var i = 0; i < showMajors.length; i++) {
+    showMajors[i].addEventListener('change', function(e){
+     buildNetwork(_getDropdownSelection("courseSelection"));
+    });
+}
+}
+
 
 
 
@@ -52,6 +76,11 @@ function _getDropdownSelection(elementId){
      return domRef.options[domRef.selectedIndex].value;
 }
 
+function _showNonMajors(){
+  return document.getElementById("showNonMajorRadiosYes").checked;
+
+}
+
 
 //TODO: need to be able to optionally show prerequisits not in the major
 function buildNetwork(majorId){
@@ -74,6 +103,7 @@ function buildNetwork(majorId){
    }
 
    //add all the edges (prereqs for each course in the selected major)
+    let dashColorIndex = 0;
     edges = new vis.DataSet();
     for(key in major.courses){
      let courseId = major.courses[key]
@@ -81,30 +111,45 @@ function buildNetwork(majorId){
 
 
      //get all prereqs for that course in the current major
+     let edgeColor = EDGE_COLOR;
      for(var p in curCourse.prereqs){
-           let prereq = curCourse.prereqs[p];
-
-           //if the prereq is outside the major's courses, add a new node for that course
-           let isPrereqInNetwork = false;
-           nodes.forEach(function(n){
-             if(n.id == prereq) {
-               isPrereqInNetwork = true;
-             }
-           });
-           if(isPrereqInNetwork == false){
-             let prereqCourse = Courses[prereq];
-             if(prereqCourse == undefined) console.error("The prereq " + prereq + "was not defined in the list of courses");
-             nodes.add({id:prereq, label:prereq, title:prereqCourse.title, color: "#" + NON_COURSE_PREREQ_COLOR, font:{size:REGULAR_NODE_SIZE}});
+           let prereqSet = curCourse.prereqs[p];
+           //if this item has more than one prereq, then they are a list of optional ones
+           let isOptional = false;
+           edgeColor = EDGE_COLOR;
+           if(prereqSet.length > 1){
+             edgeColor =  DASHES_COLOR[dashColorIndex++];
+             if(dashColorIndex == DASHES_COLOR.length) dashColorIndex = 0;
+             isOptional = true;
            }
 
-           let newEdge = {
-             from: courseId,
-             to: prereq,
-             color: {
-               color: EDGE_COLOR
+           //if the prereq is not in the network, then add it
+           for(var key in prereqSet){
+             let prereq = prereqSet[key];
+             let isPrereqInNetwork = false;
+             nodes.forEach(function(n){
+               if(n.id == prereq){
+                 isPrereqInNetwork = true;
+               }
+             });
+             if(!isPrereqInNetwork && _showNonMajors()){
+               let prereqCourse = Courses[prereq];
+               if(prereqCourse == undefined) console.error("The prereq " + prereq + "was not defined in the list of courses");
+                nodes.add({id:prereq, label:prereq, title:prereqCourse.title, color: "#" + NON_COURSE_PREREQ_COLOR, font:{size:REGULAR_NODE_SIZE}});
              }
+
+             //add a connection edge to the prereq. Edge will be dashed if an optional prereq
+             let newEdge = {
+               from: courseId,
+               to: prereq,
+               dashes:isOptional,
+               color: {
+                 color: edgeColor,
+               },
+
+             }
+             edges.add(newEdge)
            }
-           edges.add(newEdge)
      }
    }
 
@@ -115,16 +160,21 @@ function buildNetwork(majorId){
        nodes: nodes,
        edges: edges
    };
+
+   var curLayout = {};
+   if(_getDropdownSelection("networkLayout") == "hierarchical"){
+     curLayout = {
+       hierarchical: {
+         sortMethod:  SORT_METHOD,
+         nodeSpacing: NODE_SPACING,
+       //  treeSpacing: TREE_SPACING,
+     //    levelSeparation: LEVEL_SEPARATION,
+     //    direction: DIRECTION,
+       },
+     }
+   }
    var options = {
-        layout: {
-        /*  hierarchical: {
-            sortMethod:  SORT_METHOD,
-            nodeSpacing: NODE_SPACING,
-            treeSpacing: TREE_SPACING,
-            levelSeparation: LEVEL_SEPARATION,
-            direction: DIRECTION,
-          },*/
-        },
+        layout: curLayout,
         edges: {
           smooth: true,
           arrows: { to: true }
