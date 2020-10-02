@@ -80,11 +80,10 @@
 
 
 <div class="col-lg-8">
-
 <div  id="mynetwork"></div>
 </div>
-<div  class="col-lg-4" style="max-width:27%; margin-top:90px">
-  <div id="courseTitle" style="font-weight:bold; font-size:13pt"></div>
+<div  class="col-lg-3" style="max-width:27%; margin-top:0px; margin-left:3%">
+  <div id="courseTitle" style="font-weight:bold; font-size:13pt">Select a course to view details</div>
   <div id="courseDescription"></div>
 </div>
 <div>
@@ -92,6 +91,10 @@
 
   <div class="sidenav">
   <div class="form-group">
+
+<button onclick="backButtonClick()" class="btn btn-info" href="home.html" style="font-size:16pt; margin-bottom:40px">< Back</button>
+<br>
+
   <label style="font-size: 14pt; margin-top: 20px; margin-left:10px; color:white" for="courseSelection">Major</label>
   <select class="form-control" id="courseSelection" style="border-radius:4px; font-size:12pt; margin-bottom:5px">
   </select>
@@ -103,8 +106,8 @@
     <option value="level" selected>Course Level</option>
   </select>
 
-  <label style="margin-top:40px; font-size: 14pt; margin-left:10px; color:white" for="nodeSize">Node Size</label>
-  <input type="number" class="form-control" step="1" min="1" max="30" value="24"/>
+  <label  style="margin-top:40px; font-size: 14pt; margin-left:10px; color:white" for="nodeSize">Node Size</label>
+  <input disabled type="number" class="form-control" step="1" min="1" max="30" value="24"/>
 
   <label style="margin-top:40px; font-size: 14pt; margin-left:10px; color:white" for="prereqs">Show Non-Major Prereqs</label>
   <div class="form-check" style="margin-left:12px">

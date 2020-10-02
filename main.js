@@ -13,15 +13,19 @@ const TREE_SPACING = 10;
 const LEVEL_SEPARATION = 130;
 const SORT_METHOD = "directed";
 const DIRECTION = "DU";
+const REGULAR_EDGE_WIDTH = 1;
+const LARGE_EDGE_WIDTH = 4;
 
 //color for edges in the graph
 const EDGE_COLOR = "grey";
 
 //COLOR for a course that is a prereq, but outside the selected major
 const NON_COURSE_PREREQ_COLOR = "C0C0C0"
+const NON_COURSE_PREREQ_HIGHLIGHT_COLOR = "E4E4E4"
 
 //COLOR of primary nodes in the graph
 const NODE_COLOR = "F3A8F3";
+const NODE_HIGHLIGHT_COLOR = "FFC9FF";
 
 //colors to decorate the links to optional prerequisites
 const DASHES_COLOR = ["blue", "green", "red", "black", "purple"];
@@ -101,8 +105,11 @@ function buildNetwork(majorId){
        label:courseId,
        title:course.title,
        color: "#" + NODE_COLOR,
+       regularColor: "#" + NODE_COLOR,
+       highlightColor: "#" + NODE_HIGHLIGHT_COLOR,
        font:{size:REGULAR_NODE_SIZE},
        description:course.description,
+       prereqs:course.prereqs
      }
      nodes.add(node);
    }
@@ -140,7 +147,14 @@ function buildNetwork(majorId){
              if(!isPrereqInNetwork && _showNonMajors()){
                let prereqCourse = Courses[prereq];
                if(prereqCourse == undefined) console.error("The prereq " + prereq + "was not defined in the list of courses");
-                nodes.add({id:prereq, label:prereq, title:prereqCourse.title, color: "#" + NON_COURSE_PREREQ_COLOR, font:{size:REGULAR_NODE_SIZE}});
+                nodes.add({
+                  id:prereq,
+                  label:prereq,
+                  title:prereqCourse.title,
+                  color: "#" + NON_COURSE_PREREQ_COLOR,
+                  regularColor: "#" + NON_COURSE_PREREQ_COLOR,
+                  highlightColor: "#" + NON_COURSE_PREREQ_HIGHLIGHT_COLOR,
+                  font:{size:REGULAR_NODE_SIZE}});
              }
 
              //add a connection edge to the prereq. Edge will be dashed if an optional prereq
@@ -148,6 +162,8 @@ function buildNetwork(majorId){
                from: courseId,
                to: prereq,
                dashes:isOptional,
+               chosen:false, //want to control what happens to edges when a node is selected
+               width:REGULAR_EDGE_WIDTH,
                color: {
                  color: edgeColor,
                },
@@ -171,6 +187,8 @@ function buildNetwork(majorId){
    };
 
    var curLayout = {};
+
+   //this option only gets set if user choses the hierarchical layout option
    if(_getDropdownSelection("networkLayout") == "hierarchical"){
      curLayout = {
        hierarchical: {
@@ -182,6 +200,8 @@ function buildNetwork(majorId){
        },
      }
    }
+
+   //create the vis graph options based on the user's selected settings
    var options = {
         layout: curLayout,
         edges: {
@@ -228,7 +248,7 @@ function _sortNodesByLevel(){
 
         n.x = x;
         n.y = y;
-         x += dx
+        x += dx;
    });
 
    nodesToSort.forEach(function(n){
@@ -276,20 +296,82 @@ function _addNetworkEventListeners(){
       return;
     }
 
-    //enlarge the clicked node
+    //enlarge the clicked node and highlight its color
      var clickedNode= nodes.get(e.nodes[0]);
-     nodes.update({id:clickedNode.id, font: {size:LARGE_NODE_SIZE}});
+     nodes.update({
+         id:clickedNode.id,
+         font: {size:LARGE_NODE_SIZE},
+         color:clickedNode.highlightColor
+       });
 
    //add the node's data to the html fields
     document.getElementById("courseTitle").innerText = clickedNode.id + ": " +  clickedNode.title;
     document.getElementById("courseDescription").innerText = clickedNode.description;
 
-    //set all ather nodes back to their default size
+    //set all ather nodes back to their default size and color
     nodes.forEach(function(n){
       if(n.id == clickedNode.id) return;
-       nodes.update({id:n.id, font:{size:REGULAR_NODE_SIZE}})
+       nodes.update({
+         id:n.id,
+         font:{size:REGULAR_NODE_SIZE},
+         color:n.regularColor
+       })
     });
+
+    //highlight the nodes that are prereqs
+    _highlightPrereqNodes(clickedNode.id);
+
+
+    //unhighlight all previous edges
+    _unhighlightAllEdges();
+
+    //highlight edges pointing to this node's prereqs
+    let prereqs = clickedNode.prereqs;
+    for(var key in prereqs){
+      let prereqsSet = prereqs[key];
+      for(var p in prereqsSet){
+        let prereqIdToEdit = prereqsSet[p];
+         let edgeToEdit = _getEdge(clickedNode.id, prereqIdToEdit);
+         if(edgeToEdit == undefined) continue;
+         edgeToEdit.width = LARGE_EDGE_WIDTH;
+         edges.update(edgeToEdit);
+      }
+    }
+    return;
   });
+}
+
+
+//gets all prerqs to the node with the given id and sets their color to their defined highlight color
+function _highlightPrereqNodes(nodeId){
+     let clickedNode = nodes.get(nodeId);
+     let prereqsSet = clickedNode.prereqs;
+     for(var key in prereqsSet){
+       let prereqs = prereqsSet[key];
+       for(var p in prereqs){
+         let prereqNodeID = prereqs[p];
+         let prereqNode = nodes.get(prereqNodeID);
+         prereqNode.color = prereqNode.highlightColor;
+         nodes.update(prereqNode)
+       }
+     }
+}
+
+function _unhighlightAllEdges(){
+   edges.forEach(function(e){
+     e.width = REGULAR_EDGE_WIDTH;
+     edges.update(e)
+   })
+}
+
+function _getEdge(from, to){
+  let edgeToReturn = null;
+  edges.forEach(function(e){
+    if(e.from == from && e.to == to){
+      edgeToReturn = e;
+    }
+  });
+ return edgeToReturn;
 }
 
 
@@ -302,4 +384,10 @@ function _getPrefix(courseName){
 //returns the post fix for a course. For example "CS 212" will return "212"
 function _getPostfix(courseName){
   return courseName.split(" ")[1];
+}
+
+
+//called when the back button is clicket to return to the home page
+function backButtonClick(){
+  window.location.href = "home.html"
 }
