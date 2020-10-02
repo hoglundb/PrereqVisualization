@@ -93,13 +93,15 @@ function _sortMyLevelAndMajor(major){
 
 //TODO: need to be able to optionally show prerequisits not in the major
 function buildNetwork(majorId){
-
    //add all of the nodes
    nodes = new vis.DataSet();
    let major = Majors[majorId];
+   console.log(major)
    for(key in major.courses){
+     console.log(key)
      let courseId = major.courses[key];
      let course = Courses[courseId]
+     console.log(course)
      let node = {
        id: courseId,
        label:courseId,
@@ -111,9 +113,10 @@ function buildNetwork(majorId){
        description:course.description,
        prereqs:course.prereqs
      }
+     console.log(node)
      nodes.add(node);
    }
-
+    console.log("added main nodes")
    //add all the edges (prereqs for each course in the selected major)
     let dashColorIndex = 0;
     edges = new vis.DataSet();

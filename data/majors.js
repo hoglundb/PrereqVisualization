@@ -18,7 +18,6 @@ let Majors = {
 		"id": "MTH",
 		"title": "Mathematics",
 		"description": "",
-		"courses": []
+		"courses": ["MTH 111","MTH 112","MTH 231","MTH 251","MTH 252","MTH 253","MTH 254","MTH 255","MTH 256", "MTH 264", "MTH 265","MTH 306","MTH 311", "MTH 312","MTH 323","MTH 333","MTH 338","MTH 341","MTH 342","MTH 343","MTH 355","MTH 361","MTH 411","MTH 412","MTH 413","MTH 419","MTH 430","MTH 440","MTH 441"]
 	}
-
 }

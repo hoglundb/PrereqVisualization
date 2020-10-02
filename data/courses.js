@@ -33,6 +33,219 @@ let Courses =  {
       ["MTH 111"]
     ]
   },
+  "MTH 251": {
+    "id": "MTH 251",
+    "title": "DIFFERENTIAL CALCULUS",
+    "description": "Differential calculus for engineers and scientists. Rates of change: the derivative, velocity, and acceleration. The algebraic rules of differential calculus and derivatives of polynomial, rational, and trigonometric functions. Maximum-minimum problems, curve sketching, and other applications. Antiderivatives and simple motion problems. Lec/rec.",
+    "prereqs": [
+      ["MTH 112"]
+    ]
+  },
+  "MTH 252": {
+    "id": "MTH 252",
+    "title": "INTEGRAL CALCULUS",
+    "description": "Definite integrals, elementary applications to area, force, and work. Integral tables and basic techniques of integration, calculus of logarithmic and exponential functions, polar coordinates, applications to areas, volumes, force, work, and growth and decay problems. Lec/rec.",
+    "prereqs": [
+      ["MTH 251"]
+    ]
+  },
+  "MTH 253": {
+    "id": "MTH 253",
+    "title": "INFINITE SERIES AND SEQUENCES",
+    "description": "Indeterminate forms. Improper integrals. Sequences and series, especially Taylor's formula and power series. Applications to numerical estimation with error analysis. Series with complex terms and the Euler identities. Lec/rec.",
+    "prereqs": [
+      ["MTH 252"]
+    ]
+  },
+  "MTH 254": {
+    "id": "MTH 254",
+    "title": "VECTOR CALCULUS I",
+    "description": "Vectors, vector functions, and curves in two and three dimensions. Surfaces, partial derivatives, gradients, and directional derivatives. Multiple integrals in rectangular, polar, cylindrical, and spherical coordinates. Physical and geometric applications. Lec/rec.",
+    "prereqs": [
+      ["MTH 252"]
+    ]
+  },
+  "MTH 255": {
+    "id": "MTH 255",
+    "title": "VECTOR CALCULUS II",
+    "description": "Brief review of vector functions, space curves, gradients, and directional derivatives. Introduction to vector analysis: vector fields, divergence, curl, line integrals, surface integrals, conservative fields, and the theorems of Gauss and Stokes with applications to force, work, mass, and charge. Lec/rec.",
+    "prereqs": [
+      ["MTH 254"]
+    ]
+  },
+  "MTH 256": {
+    "id": "MTH 256",
+    "title": "APPLIED DIFFERENTIAL EQUATIONS",
+    "description": "irst order linear and nonlinear equations, and second order linear equations. Applications to electric circuits and mechanical oscillators. Introduction to the Laplace transform and higher order equations. Solution methods and applications appropriate for science and engineering. (Familiarity with complex numbers and Euler's identities is highly desirable.) Lec/rec",
+    "prereqs": [
+      ["MTH 254"]
+    ]
+  },
+  "MTH 264": {
+    "id": "MTH 264",
+    "title": "INTRODUCTION TO MATRIX ALGEBRA",
+    "description": "Introduction to matrix algebra: systematic solution to systems of linear equations; linear transformations; eigenvalue problems.",
+    "prereqs": [
+      ["MTH 252"]
+    ]
+  },
+  "MTH 265": {
+    "id": "MTH 265",
+    "title": "INTRODUCTION TO SERIES",
+    "description": "Convergence and divergence of numerical series, including geometric series. Series of functions. Power series and their analytic properties. Taylor series expansions and Taylor polynomials.",
+    "prereqs": [
+      ["MTH 252"]
+    ]
+  },
+  "MTH 306": {
+    "id": "MTH 306",
+    "title": "MATRIX AND POWER SERIES METHODS",
+    "description": "Introduction to matrix algebra, determinants, systematic solution to linear systems, and eigenvalue problems. Convergence and divergence of series with emphasis on power series, Taylor series expansions, convergence tests for power series, and error estimates for truncated series used in practical approximations. Lec/rec.",
+    "prereqs": [
+      ["MTH 252"]
+    ]
+  },
+  "MTH 311": {
+    "id": "MTH 311",
+    "title": "ADVANCED CALCULUS I",
+    "description": "Rigorous development of calculus, axiomatic properties of the real numbers, topology of the real line, convergence of sequences and series of real numbers, functions, limits of functions, basic properties of continuity and derivatives. Brief treatment of Riemann integration, improper integrals, sequences of functions, pointwise and uniform convergence, introductory aspects of multivariable calculus.",
+    "prereqs": [
+      ["MTH 254"],
+      ["MTH 355"]
+    ]
+  },
+  "MTH 312": {
+    "id": "MTH 312",
+    "title": "ADVANCED CALCULUS II",
+    "description": "Rigorous development of calculus, axiomatic properties of R, topology of the real line, convergence of sequences and series of real numbers, functions, limits of functions, basic properties of continuity and derivatives. Brief treatment of Riemann integration, improper integrals, sequences of functions, pointwise and uniform convergence, introductory aspects of multivariable calculus.",
+    "prereqs": [
+      ["MTH 311"]
+    ]
+  },
+  "MTH 323": {
+    "id": "MTH 323",
+    "title": "MATHEMATICAL MODELING",
+    "description": "A variety of mathematical modeling techniques will be introduced. Students will formulate models in response to practical problems drawn from the literature of ecology, environmental sciences, engineering or other fields. Informal writing assignments in class and formal written presentation of the models will be required.",
+    "prereqs": [
+      ["MTH 256"],
+      ["MTH 341"]
+    ]
+  },
+  "MTH 333": {
+    "id": "MTH 333",
+    "title": "FUNDAMENTAL CONCEPTS OF TOPOLOGY",
+    "description": "Open and closed sets, continuity, compactness, connectedness, winding number, fixed point theorems in the plane. All courses used to satisfy MTH prerequisites must be completed with C- or better.",
+    "prereqs": [
+      ["MTH 341","MTH 355"]
+    ]
+  },
+  "MTH 338": {
+    "id": "MTH 338",
+    "title": "NON-EUCLIDEAN GEOMETRY",
+    "description": "Introduction to non-Euclidean geometries. Selected topics such as hyperbolic and elliptic geometry, spherical geometry, projective geometry, geometries arising from alternative metrics.",
+    "prereqs": [
+      ["MTH 341"]
+    ]
+  },
+  "MTH 341": {
+    "id": "MTH 341",
+    "title": "LINEAR ALGEBRA I",
+    "description": "Matrix algebra, determinants, systems of linear equations, subspaces, an introductory study of eigenvalues and eigenvectors.",
+    "prereqs": [
+      ["MTH 254"]
+    ]
+  },
+  "MTH 342": {
+    "id": "MTH 342",
+    "title": "LINEAR ALGEBRA II",
+    "description": "Abstract (real or complex) vector spaces, linear transformations, inner product spaces, orthogonality, eigenspaces and diagonalization, spectral theorems, singular value decomposition.",
+    "prereqs": [
+      ["MTH 341"]
+    ]
+  },
+  "MTH 343": {
+    "id": "MTH 343",
+    "title": "INTRODUCTION TO MODERN ALGEBRA",
+    "description": "Introduction to algebraic abstraction, with an emphasis on structures and logical communication by way of proofs. Material includes an introduction to groups, rings and fields. Emphasis is on symmetry groups, the integers as a ring, and polynomial rings; selected applications. Generalizing from examples to mathematical statements, reading proofs, and both creating and editing proofs.",
+    "prereqs": [
+      ["MTH 341"],
+      ["MTH 355"]
+    ]
+  },
+  "MTH 355": {
+    "id": "MTH 355",
+    "title": "DISCRETE MATHEMATICS",
+    "description": "Proof analysis and development in the context of discrete mathematics for math majors transitioning to upper-division course work. Topics include elementary logic and set theory, quantifiers, basic counting principles, elementary combinatorics, equivalence relations, the binomial theorem, and mathematical induction. Additional topics may include recurrence relations, generating functions, and introductory graph theory.",
+    "prereqs": [
+      ["MTH 253"]
+    ]
+  },
+  "MTH 361": {
+    "id": "MTH 361",
+    "title": "INTRODUCTION TO PROBABILITY",
+    "description": "Probability problem solving using concepts developed in calculus. Topics include probability models, discrete and continuous random variables, expectation and variance, the law of large numbers, and the central limit theorem.",
+    "prereqs": [
+      ["MTH 253","MTH 306","MTH 265"]
+    ]
+  },
+  "MTH 411": {
+    "id": "MTH 411",
+    "title": "REAL ANALYSIS",
+    "description": "Properties of metric spaces and normed spaces, including lp spaces. Completeness and applications, including fixed point theorems. Compactness. Equicontinuity and the Arzela-Ascoli theorem. Uniform continuity and uniform convergence, including applications.",
+    "prereqs": [
+      ["MTH 312"],
+      ["MTH 341"]
+    ]
+  },
+  "MTH 412": {
+    "id": "MTH 412",
+    "title": "REAL ANALYSIS",
+    "description": "Measure and integration theory, basic convergence theorems, Lebesgue spaces, Fubini's theorem, Radon-Nikodym theorem, and applications. Banach spaces including Baire category theorems, and Hilbert spaces.",
+    "prereqs": [
+      ["MTH 411"]
+    ]
+  },
+  "MTH 413": {
+    "id": "MTH 413",
+    "title": "REAL ANALYSIS",
+    "description": "Measure and integration theory, basic convergence theorems, Lebesgue spaces, Fubini's theorem, Radon-Nikodym theorem, and applications. Banach spaces including Baire category theorems, and Hilbert spaces.",
+    "prereqs": [
+      ["MTH 412"]
+    ]
+  },
+  "MTH 419": {
+    "id": "MTH 419",
+    "title": "MULTIVARIABLE ADVANCED CALCULUS",
+    "description": "A rigorous development of multivariable advanced calculus, including continuity and compactness in multivariable Euclidean spaces, differentiation and approximation of multivariable functions, the inverse function theorem and the implicit function theorem, integration in several variables.",
+    "prereqs": [
+      ["MTH 312"]
+    ]
+  },
+  "MTH 430": {
+    "id": "MTH 430",
+    "title": "METRIC SPACES AND TOPOLOGY",
+    "description": "Fundamental notions of metric space topology. Examples of Euclidean, non-Euclidean and other fundamental metric spaces including the Hilbert Cube and two-dimensional surfaces. Characterization and classification results for metric spaces. Selected applications of topology, possibly including the structure of molecules and/or networks.",
+    "prereqs": [
+      ["MTH 311"]
+    ]
+  },
+  "MTH 440": {
+    "id": "MTH 440",
+    "title": "COMPUTATIONAL NUMBER THEORY",
+    "description": "evelopment of the number theory used in some basic tests of primality and methods of factoring integers. Applications to cryptology.",
+    "prereqs": [
+      ["MTH 231","MTH 343","MTH 355"]
+    ]
+  },
+  "MTH 441": {
+    "id": "MTH 441",
+    "title": "APPLIED AND COMPUTATIONAL ALGEBRA",
+    "description": "Applications of fundamental algebraic systems to topics such as factorization of polynomials, finding roots of polynomials, error correcting codes.",
+    "prereqs": [
+      ["MTH 343"],
+      ["MTH 342","MTH 440"]
+    ]
+  },
  	"CS 161": {
  		"id": "CS 161",
  		"title": " INTRODUCTION TO COMPUTER SCIENCE I",
