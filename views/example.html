@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <script src="../scripts/example.js"></script>
+   <script src="../lib/vis.js"></script>
+   <script src="../data/Prereqs.js"></script>
+   <script src="../data/Courses.js"></script>
+   <script src="../data/Majors.js"></script>
+   <link href="../lib/vis.css" rel="stylesheet" type="text/css" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+    #mynetwork {
+        width: 80%;
+        height: 70vh;
+        border: 1px solid lightgray;
+        margin-left:245px;
+
+    }
+    .sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: grey;
+  overflow-x: hidden;
+  padding-top: 20px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #A779B2;
+  display: block;
+
+}
+
+.sidenav a:hover {
+  color: #A779B2;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+.jumboItem{
+  background-color: #A779B2;
+}
+
+</style>
+
+ </head>
+
+<body>
+
+  <div  class="jumbotron jumbotron-fluid jumboItem" style="margin-bottom:10px;padding-bottom:20px!important;padding-top:20px!important">
+  <div class="container" style="text-align:center">
+    <h1 class="display-4">PrereqVis</h1>
+    <p class="lead" style="font-size:16pt">A dynamic visualization tool that allows college courses and their prerequisites to be viewed as a network.</p>
+    <p style="font-size:12pt">Powered by <a   href="https://visjs.org/" target="_blank">Vis.js</a></p>
+  </div>
+  </div>
+
+
+<div class="col-lg-8">
+<div  id="mynetwork"></div>
+</div>
+<div  class="col-lg-3" style="max-width:27%; margin-top:0px; margin-left:3%">
+  <div id="courseTitle" style="font-weight:bold; font-size:13pt">Select a course to view details</div>
+  <div id="courseDescription"></div>
+</div>
+<div>
+
+
+  <div class="sidenav">
+  <div class="form-group">
+
+<button onclick="backButtonClick()" class="btn btn-info" href="home.html" style="font-size:16pt; margin-bottom:40px">< Back</button>
+<br>
+
+  <label style="font-size: 14pt; margin-top: 60px; margin-left:10px; color:white" for="courseSelection">Major</label>
+  <select class="form-control" id="courseSelection" style="border-radius:4px; font-size:12pt; margin-bottom:5px">
+  </select>
+
+  <label style="margin-top:40px; font-size: 14pt; margin-left:10px; color:white" for="networkLayout">Network Layout</label>
+  <select class="form-control" id="networkLayout" style="border-radius:4px; font-size:12pt; margin-bottom:5px">
+    <option value="kk">Kamada-Kawai </option>
+    <option value="hierarchical">Hierarchical</option>
+    <option value="level" selected>Course Level</option>
+  </select>
+  <label style="margin-top:40px; font-size: 14pt; margin-left:10px; color:white" for="prereqs">Show Non-Major Prereqs</label>
+  <div class="form-check" style="margin-left:12px">
+    <input class="form-check-input showNonMajorRadios" type="radio" name="showNonMajorRadios" id="showNonMajorRadiosYes" value="option1" checked>
+    <label style="color:white" class="form-check-label" for="showNonMajorRadiosYes">
+      Yes
+    </label>
+  </div>
+  <div class="form-check showNonMajorRadios" style="margin-left:12px">
+    <input class="form-check-input" type="radio" name="showNonMajorRadios" id="showNonMajorRadiosNo" value="option2">
+    <label style="color:white" class="form-check-label" for="showNonMajorRadiosNo">
+      No
+    </label>
+  </div>
+</body>
+</html>
