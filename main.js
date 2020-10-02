@@ -20,7 +20,7 @@ const EDGE_COLOR = "grey";
 //COLOR for a course that is a prereq, but outside the selected major
 const NON_COURSE_PREREQ_COLOR = "C0C0C0"
 
-//COLOR of nodes in the graph
+//COLOR of primary nodes in the graph
 const NODE_COLOR = "F3A8F3";
 
 //colors to decorate the links to optional prerequisites
@@ -52,8 +52,6 @@ function _initailize(){
 }
 
 
-
-
 function _buildMajorsDropdown(){
      let domRef = document.getElementById("courseSelection");
      for(var key in Majors){
@@ -71,16 +69,23 @@ function _buildMajorsDropdown(){
      })
 }
 
-function _getDropdownSelection(elementId){
-     let domRef = document.getElementById(elementId);
-     return domRef.options[domRef.selectedIndex].value;
+
+//we want these sorted so we can group by level if user selects that layout option
+function _sortMyLevelAndMajor(major){
+  console.log(major)
+  major.courses.sort(function(a, b) {
+    var textA = _getPostfix(a);
+    var textB = _getPostfix(b);
+    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+});
+  for(var key in major.courses){
+    let courseId = major.courses[key];
+    let course = Courses[courseId]
+    course.level = _getPostfix(courseId);
+
+  }
+  console.log(major)
 }
-
-function _showNonMajors(){
-  return document.getElementById("showNonMajorRadiosYes").checked;
-
-}
-
 
 //TODO: need to be able to optionally show prerequisits not in the major
 function buildNetwork(majorId){
@@ -146,7 +151,6 @@ function buildNetwork(majorId){
                color: {
                  color: edgeColor,
                },
-
              }
              edges.add(newEdge)
            }
@@ -155,6 +159,11 @@ function buildNetwork(majorId){
 
    // create a network
    var container = document.getElementById('mynetwork');
+
+   if(_getDropdownSelection("networkLayout") == "level"){
+      _sortNodesByLevel();
+      _computeCustomLayout();
+   }
 
    data = {
        nodes: nodes,
@@ -189,6 +198,63 @@ function buildNetwork(majorId){
    network = new vis.Network(container, data, options);
    _addNetworkEventListeners();
    }
+
+
+//sorts the global nodes object by class level
+function _sortNodesByLevel(){
+   let nodesToSort = []
+   nodes.forEach(function(n){
+        let node = {id:n.id, title:n.title, description:n.description, major:_getPrefix(n.id), rank:_getPostfix(n.id)}
+        nodesToSort.push(node)
+   });
+
+   nodesToSort.sort(function(a, b) {
+     return (a.rank < b.rank) ? -1 : (a.rank > b.rank) ? 1 : 0;
+   });
+
+   //count up by 100's for each row;
+   let curLevel = 200;
+   let x = 0;
+   let y = 0;
+   let dx = 150;
+   let dy = 150;
+   nodesToSort.forEach(function(n){
+
+        if(n.rank >= curLevel){
+          y += dy;
+          x = 0;
+          curLevel += 100;
+        }
+
+        n.x = x;
+        n.y = y;
+         x += dx
+   });
+
+   nodesToSort.forEach(function(n){
+      nodes.update({id:n.id, x:n.x, y:n.y})
+   });
+}
+
+
+//computes the x,y coords for the network layout
+function _computeCustomLayout(){
+
+}
+
+
+//returns the selected value of the dropdown with the given id
+function _getDropdownSelection(elementId){
+     let domRef = document.getElementById(elementId);
+     return domRef.options[domRef.selectedIndex].value;
+}
+
+
+//looks at the showNonMajorRadios checkbox to see if non Major courses should show in the network
+function _showNonMajors(){
+  return document.getElementById("showNonMajorRadiosYes").checked;
+
+}
 
 
 //a helper function that manages event handlers for the network
@@ -227,8 +293,13 @@ function _addNetworkEventListeners(){
 }
 
 
-//returns the prefis of a course. For example "CS 212" will return CS
+//returns the prefis of a course. For example "CS 212" will return "CS"
 function _getPrefix(courseName){
-
     return courseName.split(" ")[0];
+}
+
+
+//returns the post fix for a course. For example "CS 212" will return "212"
+function _getPostfix(courseName){
+  return courseName.split(" ")[1];
 }
