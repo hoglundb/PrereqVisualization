@@ -24,8 +24,8 @@ const NON_COURSE_PREREQ_COLOR = "C0C0C0"
 const NON_COURSE_PREREQ_HIGHLIGHT_COLOR = "E4E4E4"
 
 //COLOR of primary nodes in the graph
-const NODE_COLOR = "F3A8F3";
-const NODE_HIGHLIGHT_COLOR = "FFC9FF";
+const NODE_COLOR = "81DDFD";
+const NODE_HIGHLIGHT_COLOR = "BCEEFF";
 
 //colors to decorate the links to optional prerequisites
 const DASHES_COLOR = ["blue", "green", "red", "black", "purple"];
@@ -148,6 +148,7 @@ function buildNetwork(majorId){
                   id:prereq,
                   label:prereq,
                   title:prereqCourse.title,
+                  description:prereqCourse.description,
                   color: "#" + NON_COURSE_PREREQ_COLOR,
                   regularColor: "#" + NON_COURSE_PREREQ_COLOR,
                   highlightColor: "#" + NON_COURSE_PREREQ_HIGHLIGHT_COLOR,

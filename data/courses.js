@@ -1,8 +1,8 @@
 let Courses =  {
  	"EECS 161": {
  		"id": "EECS 161",
- 		"title": "",
- 		"description": "",
+ 		"title": "No Title Available",
+ 		"description": "No Description Available",
  		"prereqs": []
  	},
   "ECE 271": {

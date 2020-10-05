@@ -64,12 +64,63 @@
   background-color: #A779B2;
 }
 
+
+.dottedArrow{
+  top:0;
+  bottom:0;
+  transform: rotate(90deg);
+}
+.dottedArrowLine {
+  border-right: 0.2rem dashed #7E7E7E;
+  display:inline-block;
+  height:5rem;
+}
+.arrow{
+position:absolute;
+  top:-0.3rem;
+  bottom:0;
+  height:1rem;
+  border-right: 0.2rem solid #7E7E7E;
+  display: inline-block;
+}
+.dottedArrowRight{
+  left:0.3rem;
+  transform: rotate(-45deg);
+}
+.dottedArrowLeft{
+  right:0.3rem;
+  transform: rotate(45deg);
+}
+
+
+.solidArrow{
+  top:0;
+  bottom:0;
+  transform: rotate(90deg);
+}
+.solidArrowLine {
+  border-right: 0.2rem solid #7E7E7E;
+  display:inline-block;
+  height:5rem;
+}
+
+.oval {
+  width: 36px;
+  height: 18px;
+  border-radius: 100px / 50px;
+}
+
+body {
+  font-family: Sans-Serif;
+}
+
+
 </style>
 
  </head>
 
 <body>
-
+<!--The top of the page header -->
   <div  class="jumbotron jumbotron-fluid jumboItem" style="margin-bottom:10px;padding-bottom:20px!important;padding-top:20px!important">
   <div class="container" style="text-align:center">
     <h1 class="display-4">PrereqVis</h1>
@@ -78,9 +129,40 @@
   </div>
   </div>
 
-
+<!--The legend items for the network -->
 <div class="col-lg-8">
-<div  id="mynetwork"></div>
+  <span class="legendItem" style="position:absolute; margin-left:255px; margin-top:0px">Optional Prereq</span>
+  <div id="legend" class="legendItem" style="position:absolute; margin-left:390px; top:-15px">
+    <div class="dottedArrow">
+    <span class="arrow dottedArrowLeft"></span>
+    <span class="dottedArrowLine"></span>
+    <span class="arrow dottedArrowRight"></span>
+  </div>
+  </div>
+    <span class="legendItem" style="position:absolute; margin-left:255px; margin-top:25px">Required Prereq</span>
+  <div class="legendItem" style="position:absolute; margin-left:390px; top:10px">
+    <div class="solidArrow">
+    <span class="arrow dottedArrowLeft"></span>
+    <span class="solidArrowLine"></span>
+    <span class="arrow dottedArrowRight"></span>
+  </div>
+  </div>
+  <span class="legendItem" style="position:absolute; margin-left:255px; margin-top:50px">Major</span>
+  <div class="ovalItem" style="position:absolute; margin-left:330px; top:52px">
+     <div class="oval" style="background:#81DDFD"></div>
+  </div>
+  <span class="legendItem" style="position:absolute; margin-left:255px; margin-top:75px">Non-Major</span>
+  <div class="ovalItem" style="position:absolute; margin-left:330px; top:77px">
+     <div class="oval" style="background:#C0C0C0"></div>
+  </div>
+
+
+
+<!--The network where we draw on the canvas-->
+<div  id="mynetwork">
+
+</div>
+
 </div>
 <div  class="col-lg-3" style="max-width:27%; margin-top:0px; margin-left:3%">
   <div id="courseTitle" style="font-weight:bold; font-size:13pt">Select a course to view details</div>
@@ -88,7 +170,7 @@
 </div>
 <div>
 
-
+<!--The side nav bar -->
   <div class="sidenav">
   <div class="form-group">
 
@@ -103,7 +185,7 @@
   <select class="form-control" id="networkLayout" style="border-radius:4px; font-size:12pt; margin-bottom:5px">
     <option value="kk">Kamada-Kawai </option>
     <option value="hierarchical">Hierarchical</option>
-    <option value="level" selected>Course Level</option>
+    <option value="level" selected>Course Progression</option>
   </select>
   <label style="margin-top:40px; font-size: 14pt; margin-left:10px; color:white" for="prereqs">Show Non-Major Prereqs</label>
   <div class="form-check" style="margin-left:12px">
